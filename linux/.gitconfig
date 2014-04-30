@@ -1,0 +1,24 @@
+[user]
+	name = Tom Rafferty
+	email = 
+
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+
+[core]
+    editor = /usr/bin/vi
+	excludesfile = ~/.gitignore_global
+	whitespace = cr-at-eol
+
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    pushit = push origin HEAD
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+

@@ -1,0 +1,57 @@
+# Recent settings file for Wireshark 1.6.7.
+#
+# This file is regenerated each time Wireshark is quit.
+# So be careful, if you want to make manual changes here.
+
+######## Recent capture files (latest last), cannot be altered through command line ########
+
+recent.capture_file: /media/sf_data/v49_8192Bins2.pcap
+recent.capture_file: /media/sf_data/v49_IQ.pcap
+recent.capture_file: /media/sf_data/v49_PSD_plus_IQ.pcap
+recent.capture_file: /media/sf_data/v49_256Bins_3.pcap
+recent.capture_file: /media/sf_data/v49_64Bins_3.pcap
+recent.capture_file: /media/sf_data/v49_128Bins_3.pcap
+recent.capture_file: /media/sf_data/v49_2048Bins_3.pcap
+recent.capture_file: /media/sf_data/v49_512Bins_3.pcap
+recent.capture_file: /media/sf_data/v49_4096Bins_3.pcap
+recent.capture_file: /media/sf_data/v49_8192Bins_3.pcap
+
+######## Recent capture filters (latest last), cannot be altered through command line ########
+
+
+######## Recent display filters (latest last), cannot be altered through command line ########
+
+
+# Main window geometry.
+# Decimal numbers.
+gui.geometry_main_x: 20
+gui.geometry_main_y: 20
+gui.geometry_main_width: 1550
+gui.geometry_main_height: 1005
+
+# Main window maximized.
+# TRUE or FALSE (case-insensitive).
+gui.geometry_main_maximized: FALSE
+
+# Statusbar left pane size.
+# Decimal number.
+gui.geometry_status_pane: 250
+
+# Statusbar middle pane size.
+# Decimal number.
+gui.geometry_status_pane_right: 1050
+
+# Last used Configuration Profile.
+gui.last_used_profile: Default
+
+# WLAN statistics upper pane size.
+# Decimal number.
+gui.geometry_status_wlan_stats_pane: 200
+
+# Warn if running with elevated permissions (e.g. as root).
+# TRUE or FALSE (case-insensitive).
+privs.warn_if_elevated: TRUE
+
+# Warn if npf.sys isn't loaded on Windows >= 6.0.
+# TRUE or FALSE (case-insensitive).
+privs.warn_if_no_npf: TRUE
