@@ -69,9 +69,20 @@ xterm*|rxvt*)
     ;;
 esac
 
-PS1=$'\\[\\033]0;\\w\\007\n\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]\n$ '
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+    . /etc/bash_completion
+fi
+if [ -f /etc/bash_completion.d/git-prompt ]; then
+  . /etc/bash_completion.d/git-prompt
+fi
+GIT_PS1_SHOWDIRTYSTATE=true
+
+#PS1=$'\\[\\033]0;\\w\\007\n\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]\n$ '
 #export PS1="[\[\033[1m\]\h${JAIL:+($JAIL)} \$ "
-#PS1=$'\\[\\033]0;\\w\\007\n\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]\\[\\033[0;34m\\]$(git_branch)\\[\\033[0m\\]\n$ '
+PS1=$'\\[\\033]0;\\w\\007\n\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]\\[\\033[0;34m\\]$(__git_ps1)\\[\\033[0m\\]\n$ '
 #PS1=$'\\[\\033]0;\\w\\007\n\\033[32m\\]\\u@\\h \\[\\033[33m\\w\\033[0m\\]\\[\\033[0;34m\\]${JAIL:+($JAIL)}\\[\\033[0m\\]\n$ '
 PS2='> '
 PS4='+ '
@@ -108,13 +119,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
 fi
 
 # User specific aliases and functions
