@@ -1,0 +1,24 @@
+Recipe:
+1. Setup homebrew:
+  - Install homebrew, update, upgrade, 
+  - Install additional packages using Brewfile (from Walter's Brewfile)
+
+2. Install python using pyenv:
+  $ pyenv install --list
+  $ pyenv install 3.10.1
+
+3. Setup .zshrc...add lines:
+  eval "$(pyenv init --path)"
+  eval "$(pyenv init -)"
+
+4. Setup virtualenv
+  $ mkdir ~/venv    -> create a folder to hold all the virtualenv info
+  $ python -m venv ~/venv/NAME   -> NAME is the name of the virtualenv, ie "data"    
+
+5. Activate the virtualenv:
+  $ source ~/venv/data/bin/activate ( or use the alias "godata")
+
+6. Update modules from previous "pip freeze"
+  - first, from previous python environment: $pip freeze > requirements.txt
+  - edit this file if necessary...you can even remove some/all version numbers if you want the latest
+  - then update new virtual env with "pip install -r requirements.txt"
