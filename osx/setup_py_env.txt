@@ -22,3 +22,5 @@ Recipe:
   - first, from previous python environment: $pip freeze > requirements.txt
   - edit this file if necessary...you can even remove some/all version numbers if you want the latest
   - then update new virtual env with "pip install -r requirements.txt"
+
+  - cleanup afterward:

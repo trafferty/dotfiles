@@ -1,0 +1,90 @@
+
+## See https://zsh.sourceforge.io/Doc/Release/Options.html for zsh options
+
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+
+# https://unix.stackexchange.com/questions/669971/zsh-can-i-have-a-combined-history-for-all-of-my-shells
+
+HISTFILE=$HOME/.zsh_history # location of the history file
+export HISTFILESIZE=1000000 # history limit of the file on disk
+export HISTSIZE=1000000 # current session's history limit, also following this https://unix.stackexchange.com/a/595475 $HISTSIZE should be at least 20% bigger than $SAVEHIST 
+export SAVEHIST=$((HISTSIZE/2)) # zsh saves this many lines from the in-memory history list to the history file upon shell exit
+export HISTTIMEFORMAT="%Y-%m-%d %H:%M] "
+
+setopt INC_APPEND_HISTORY # history file is updated immediately after a command is entered
+# setopt APPEND_HISTORY # ensures that each command entered in the current session is appended to the history file after exit
+# setopt SHARE_HISTORY # allows multiple Zsh sessions to share the same command history 
+setopt EXTENDED_HISTORY # records the time when each command was executed along with the command itself
+setopt HIST_IGNORE_DUPS # don't add multiple 'cd ..', etc
+setopt HIST_EXPIRE_DUPS_FIRST # save unique hist entries longer
+setopt HIST_VERIFY # edit recalled history before running
+
+autoload -U compinit && compinit
+autoload -U colors && colors
+
+# PLUGINS -----------------------------
+
+# source ~/.zsh/plugins/git/git-prompt.sh
+# git prompt options
+# GIT_PS1_SHOWDIRTYSTATE=true
+# GIT_PS1_SHOWSTASHSTATE=true
+# GIT_PS1_SHOWUNTRACKEDFILES=true
+# GIT_PS1_SHOWUPSTREAM="auto"
+# GIT_PS1_STATESEPARATOR=' '
+# GIT_PS1_HIDE_IF_PWD_IGNORED=true
+# GIT_PS1_COMPRESSSPARSESTATE=true
+
+# https://github.com/zsh-users/zsh-autosuggestions?tab=readme-ov-file
+# installed using homebrew
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+# autocompletion using arrow keys (based on history)
+bindkey '\e[A' history-search-backward
+bindkey '\e[B' history-search-forward
+
+# PROMPT -----------------------------
+
+setopt PROMPT_SUBST
+git_prompt_info() {
+    git symbolic-ref --short HEAD 2> /dev/null | sed -E 's/(.+)/ (\1)/g'
+}
+
+function collapse_pwd {
+    echo $(pwd | sed -e "s,^$HOME,~,")
+}
+
+NL=$'\n'
+PROMPT='%{$fg_bold[cyan]%}$(collapse_pwd) % %F{blue}$(git_prompt_info)$NL'
+PROMPT+="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$reset_color%}"
+
+# ENV customization -----------------------------
+
+if [ -f $HOME/.cntenv ]; then
+    . $HOME/.cntenv
+fi
+
+if [ -f $HOME/.threnv ]; then
+    . $HOME/.threnv
+fi
+
+if [ -f $HOME/.aliases ]; then
+    . $HOME/.aliases
+fi
+
+function hgrep() {
+    # check if we passed any parameters
+    if [ -z "$*" ]; then
+        # if no parameters were passed print entire history
+        history 1
+    else
+        # if words were passed use it as a search
+        history 1 | egrep --color=auto "$@"
+    fi
+}
+
+# "fuzzy" history search (requires fzf from homebrew)
+function fh() {
+    eval $( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')
+}

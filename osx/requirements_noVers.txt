@@ -70,7 +70,6 @@ mpmath
 mutagen
 nbconvert
 nbformat
-neoradio2
 networkx
 nolds
 notebook
